@@ -1,0 +1,142 @@
+{
+    "student_ids": [
+        "9220154",
+        "9220393"
+    ],
+    "trials": [
+        {
+            "hyperparams": {
+                "learning_rate": 0.001,
+                "batch_size": 32,
+                "optimizer": "SGD",
+                "epochs": 10,
+                "imbalance_strategy": "oversampling"
+            },
+            "accuracy": 0.8152272727272727,
+            "F_score_class": {
+                "GREENERY": 0.7726971504307488,
+                "SAND": 0.7001862197392924,
+                "WATER": 0.715258855585831,
+                "CEMENT": 0.8856601389766267
+            },
+            "observations": [
+                "All classes have relatively low F1 scores"
+            ],
+            "conclusions": [
+                "The learning rate of 0.001 combined with SGD caused underfitting"
+            ]
+        },
+        {
+            "hyperparams": {
+                "learning_rate": 0.01,
+                "batch_size": 64,
+                "optimizer": "SGD",
+                "epochs": 10,
+                "imbalance_strategy": "oversampling"
+            },
+            "accuracy": 0.8438636363636364,
+            "F_score_class": {
+                "GREENERY": 0.8354814253222138,
+                "SAND": 0.8226950354609929,
+                "WATER": 0.7044943820224719,
+                "CEMENT": 0.9009268795056643
+            },
+            "observations": [
+                "Increasing the batch size and using a higher learning rate improved accuracy overall but WATER accuracy got lower"
+            ],
+            "conclusions": [
+                "The combination of a higher learning rate and larger batch size helped the model converge better but may have caused overfitting on some classes, leading to worse performance on WATER"
+            ]
+        },
+        {
+            "hyperparams": {
+                "learning_rate": 0.01,
+                "batch_size": 64,
+                "optimizer": "SGD",
+                "epochs": 10,
+                "imbalance_strategy": "none"
+            },
+            "accuracy": 0.8556818181818182,
+            "F_score_class": {
+                "GREENERY": 0.8290854572713643,
+                "SAND": 0.7506297229219143,
+                "WATER": 0.7214501510574018,
+                "CEMENT": 0.9236595575044848
+            },
+            "observations": [
+                "Accuracy of CEMENT class improved significantly but all other classes got worse"
+            ],
+            "conclusions": [
+                "Not using oversampling caused the model to overfit on the majority classes, leading to better performance on CEMENT but worse performance on minority classes like WATER"
+            ]
+        },
+        {
+            "hyperparams": {
+                "learning_rate": 0.01,
+                "batch_size": 32,
+                "optimizer": "Adam",
+                "epochs": 10,
+                "imbalance_strategy": "none",
+                "with_dropout_after_features": true
+            },
+            "accuracy": 0.8579545454545454,
+            "F_score_class": {
+                "GREENERY": 0.7781201848998459,
+                "SAND": 0.7213114754098361,
+                "WATER": 0.7271540469973891,
+                "CEMENT": 0.9350897289041619
+            },
+            "observations": [
+                "Greatly reduced performance across SAND,WATER and GREENERY classes"
+            ],
+            "conclusions": [
+                "Dropout after features caused underfitting and reduced the model's ability to learn important patterns, leading to worse performance across multiple classes"
+            ]
+        },
+        {
+            "hyperparams": {
+                "learning_rate": 0.01,
+                "batch_size": 32,
+                "optimizer": "Adam",
+                "epochs": 10,
+                "imbalance_strategy": "oversampling"
+            },
+            "accuracy": 0.8629545454545454,
+            "F_score_class": {
+                "GREENERY": 0.8193249503639973,
+                "SAND": 0.7889713679745494,
+                "WATER": 0.7670807453416149,
+                "CEMENT": 0.9141953341241598
+            },
+            "observations": [
+                "More consistent performance across all classes but still not the best"
+            ],
+            "conclusions": [
+                "Combining Adam optimizer with oversampling and high learning rate 0.01 provided a more balanced learning process, improving performance on minority classes while maintaining decent performance on majority classes, though further tuning may be needed to achieve the best results"
+            ]
+        },
+        {
+            "hyperparams": {
+                "learning_rate": 0.001,
+                "batch_size": 32,
+                "optimizer": "Adam",
+                "epochs": 10,
+                "imbalance_strategy": "oversampling"
+            },
+            "accuracy": 0.9020454545454546,
+            "F_score_class": {
+                "GREENERY": 0.8674033149171271,
+                "SAND": 0.8557806912991657,
+                "WATER": 0.8282548476454293,
+                "CEMENT": 0.9406194515683567
+            },
+            "observations": [
+                "The best trial achieved the highest accuracy and F1 across all classes"
+            ],
+            "conclusions": [
+                "The combination of oversampling, Adam optimizer, and a moderate learning rate of 0.001 provided the best balance for this dataset, leading to superior performance across all macro-classes"
+            ]
+        }
+    ],
+    "micro_class_error_analysis": "# Error Analysis Interpretation\n\n#### The worst macro-class is WATER\n#### At the Macro Level, WATER macro class is mostly confused with CEMENT, GREENRY then SAND \n#### At the Micro Level, the most missclassified categories are \n\nMost common (true micro, predicted macro) \n\n- [('ship', 'CEMENT'), 29] ship interpreted as CEMENT which make sense because it contains many man-made artificats \n- [('river', 'GREENERY'), 12] river interpreted as GREENRY which make sense because of the plants in the river \n- [('harbor', 'CEMENT'), 10] harbor interpreted as CEMENT which also make sense because it contain many man made structures beside the water\n- [('snowberg', 'CEMENT'), 8] snowberg appearing as CEMENT because it mostly look building tops\n- [('river', 'SAND'), 7] river interpreted as SAND because rivers are mostly surrounded by soil\n- [('ship', 'SAND'), 7] ship interpreted as SAND because it mostly appears near coastal areas"
+}
