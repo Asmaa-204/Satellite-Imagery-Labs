@@ -1,0 +1,25 @@
+{
+    "student_ids": [
+        "9220154",
+        "9220393"
+    ],
+    "epochs_run_per_model": 5,
+    "metrics": [
+        {
+            "modality": "Satellite Only",
+            "test_iou": 0.5750947601297329,
+            "test_dice": 0.7107572438797527
+        },
+        {
+            "modality": "Map Only",
+            "test_iou": 0.9169835342563739,
+            "test_dice": 0.9548050827009726
+        },
+        {
+            "modality": "Combined",
+            "test_iou": 0.9177642955730878,
+            "test_dice": 0.956113156375907
+        }
+    ],
+    "analytical_conclusion": "The experimental results demonstrate a significant performance gap between the three input modalities. The Satellite-only model achieved relatively low IoU and Dice scores, indicating difficulty in extracting road features from raw imagery due to noise, shadows, and complex visual patterns. In contrast, the Map-only model achieved substantially higher performance, as the rendered maps provide a simplified and high-contrast representation where roads are explicitly defined. This makes feature extraction significantly easier for the network. The Combined model showed only marginal improvement over the Map-only model, suggesting that the satellite imagery adds little additional useful information beyond what is already present in the map representation. In some cases, the additional modality may even introduce noise. Overall, the results indicate that structured and abstracted representations (maps) are more effective for semantic segmentation tasks than raw visual data, and that combining modalities is only beneficial when each modality contributes complementary information."
+}
